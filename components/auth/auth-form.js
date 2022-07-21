@@ -41,6 +41,7 @@ function AuthForm() {
           password: passwordValue
         },
       )
+      window.location.href = "/profile"
       console.log(result);
 
     } else {
