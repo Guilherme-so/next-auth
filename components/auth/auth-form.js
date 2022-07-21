@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { signIn } from 'next-auth/client';
+import { useRouter } from "next/router"
 
 import classes from './auth-form.module.css';
 
@@ -22,6 +23,7 @@ function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef()
   const passwordRef = useRef()
+  const router = useRouter()
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -41,8 +43,10 @@ function AuthForm() {
           password: passwordValue
         },
       )
-      window.location.href = "/profile"
-      console.log(result);
+
+      if (!result.error) {
+        router.replace("/profile")
+      }
 
     } else {
       try {
